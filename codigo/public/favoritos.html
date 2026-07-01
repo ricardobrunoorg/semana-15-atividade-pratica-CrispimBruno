@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mesa Aberta | Catálogo de Jogos</title>
+  <title>Mesa Aberta | Meus Favoritos</title>
   <link rel="stylesheet" href="./assets/css/styles.css">
   <script src="./assets/js/login.js"></script>
 </head>
@@ -26,20 +26,19 @@
   </header>
 
   <section class="hero">
-    <p class="hero-eyebrow">Catálogo de jogos de mesa &amp; RPG</p>
-    <h1>Escolha seu próximo jogo de mesa</h1>
-    <p>Explore RPGs, cooperativos e jogos de estratégia. Entre na sua conta e clique no dado de cada
-      card para guardar seus favoritos.</p>
+    <p class="hero-eyebrow">Sua coleção pessoal</p>
+    <h1>Meus favoritos</h1>
+    <p>Os jogos que você marcou com o dado dourado aparecem aqui, salvos para a sua conta.</p>
   </section>
 
   <main>
     <div class="secao">
       <div class="secao-titulo">
-        <h2>Todos os jogos</h2>
-        <span class="contador" id="contador-jogos"></span>
+        <h2>Favoritados</h2>
+        <span class="contador" id="contador-favoritos"></span>
       </div>
-      <div class="grade-jogos" id="lista-jogos">
-        <p class="estado-vazio">Carregando jogos...</p>
+      <div class="grade-jogos" id="lista-favoritos">
+        <p class="estado-vazio">Carregando...</p>
       </div>
     </div>
   </main>
@@ -49,7 +48,7 @@
   <script src="./assets/js/favoritos.js"></script>
   <script src="./assets/js/app.js"></script>
   <script>
-    window.addEventListener('DOMContentLoaded', initHomePage);
+    window.addEventListener('DOMContentLoaded', initFavoritosPage);
   </script>
 </body>
 </html>

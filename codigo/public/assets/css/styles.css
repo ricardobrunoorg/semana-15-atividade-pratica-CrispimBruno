@@ -1,56 +1,441 @@
-@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"); 
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap");
 
-h3 {
-    color: #093070;
-    border-bottom: 1px solid #c1c1c1;
-}
-h4 {
-    color: #ff7645;
-}
+:root {
+  --bg: #161110;
+  --bg-alt: #1d1614;
+  --surface: #251c18;
+  --surface-2: #2c211c;
+  --border: #3c2d27;
+  --text: #ede3d8;
+  --text-muted: #a8978a;
+  --crimson: #b23a48;
+  --crimson-bright: #d35262;
+  --gold: #c9a227;
+  --gold-bright: #e2c25a;
 
-.banner img {
-    width: 100%;
-}
-
-.barra-info {
-    height: 2em;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: space-between;
+  --display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --body: "Source Sans 3", system-ui, sans-serif;
+  --mono: "JetBrains Mono", "SFMono-Regular", monospace;
 }
 
-.menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(178, 58, 72, 0.10), transparent 40%),
+    radial-gradient(circle at 85% 10%, rgba(201, 162, 39, 0.07), transparent 45%);
+  color: var(--text);
+  font-family: var(--body);
+  line-height: 1.5;
 }
 
-.menu li {
-    display: inline;
-    margin: 0px;
-    padding: 0.5em 1em; 
-    height: 2em;
-    line-height: 2em;
+a { color: var(--gold-bright); }
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 2px;
 }
 
-.menu li a {
-    text-decoration: none;
-    color: #ff7645;
-    font-weight: bold;
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0 0 0.4em;
 }
 
-.menu li:hover {
-    background-color: darkblue;
-    color: white;
+/* ---------- Header ---------- */
+
+.topo {
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--bg-alt), var(--bg));
 }
 
-.dados-usuario {
-    height: 2em;
-    line-height: 2em;
-    margin-right: 20px;
+.topo-faixa {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.9em 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5em;
+  flex-wrap: wrap;
 }
 
-main {
-    padding: 20px;
+.marca {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.marca-simbolo {
+  font-size: 1.4rem;
+  color: var(--gold);
+}
+
+.marca-nome {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.menu-principal {
+  display: flex;
+  align-items: center;
+  gap: 1.6em;
+  flex-wrap: wrap;
+}
+
+.menu-principal ul {
+  list-style: none;
+  display: flex;
+  gap: 1.4em;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-principal a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  transition: color 0.15s ease;
+}
+
+.menu-principal a:hover { color: var(--gold-bright); }
+
+#userInfo {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+#userInfo a { font-weight: 600; }
+
+/* ---------- Hero ---------- */
+
+.hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3.2em 1.5em 2em;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--crimson-bright);
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  max-width: 14ch;
+}
+
+.hero p {
+  max-width: 56ch;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+/* ---------- Conteúdo / grid de cards ---------- */
+
+main { padding: 0 1.5em 4em; }
+
+.secao {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.secao-titulo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 2.2em 0 1.2em;
+}
+
+.secao-titulo h2 { font-size: 1.6rem; }
+
+.contador {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.grade-jogos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.4em;
+}
+
+.estado-vazio {
+  grid-column: 1 / -1;
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  padding: 2.5em 1.5em;
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ---------- Card de jogo ---------- */
+
+.card-jogo {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.card-jogo:hover {
+  transform: translateY(-3px);
+  border-color: var(--cor-jogo, var(--gold));
+}
+
+.card-faixa {
+  height: 5px;
+  background: var(--cor-jogo, var(--gold));
+}
+
+.card-corpo { padding: 1.3em 1.3em 1.5em; }
+
+.card-genero {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cor-jogo, var(--gold));
+}
+
+.card-jogo h3 {
+  font-size: 1.45rem;
+  margin: 0.2em 0 0.4em;
+}
+
+.card-descricao {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin: 0 0 1em;
+}
+
+.card-meta {
+  display: flex;
+  gap: 1.2em;
+  margin: 0;
+  padding-top: 0.9em;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.card-meta div { display: flex; flex-direction: column; gap: 0.15em; }
+
+.card-meta dt {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.card-meta dd {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+/* Botão "dado de favorito" -- elemento de assinatura do design */
+
+.dado-favorito {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 2.6em;
+  height: 2.6em;
+  border: none;
+  cursor: pointer;
+  background: var(--surface-2);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.dado-favorito:hover { color: var(--gold-bright); }
+
+.card-jogo.favoritado .dado-favorito {
+  background: var(--gold);
+  color: var(--bg);
+  transform: rotate(180deg);
+}
+
+.card-jogo.favoritado .dado-face { transform: rotate(180deg); }
+
+/* ---------- Rodapé ---------- */
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1.6em 1.5em;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+/* ---------- Página Sobre ---------- */
+
+.pagina-texto {
+  max-width: 70ch;
+  margin: 0 auto;
+  padding: 3em 1.5em 4em;
+}
+
+.pagina-texto p { color: var(--text-muted); }
+
+/* ---------- Página de Login ---------- */
+
+.pagina-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.login-wrapper { padding: 1.5em; width: 100%; max-width: 420px; }
+
+.login-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2.4em 2em;
+  text-align: center;
+}
+
+.login-emblema {
+  font-size: 2.2rem;
+  color: var(--gold);
+  margin-bottom: 0.2em;
+}
+
+.login-card h1 { font-size: 2rem; }
+
+.login-subtitulo {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin-bottom: 1.6em;
+}
+
+.form-mesa { text-align: left; }
+
+.campo { margin-bottom: 1.1em; }
+
+.campo label {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.4em;
+}
+
+.campo input {
+  width: 100%;
+  padding: 0.65em 0.8em;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 0.95rem;
+}
+
+.campo input:focus { border-color: var(--gold); }
+
+.botao-primario, .botao-secundario {
+  width: 100%;
+  padding: 0.75em;
+  border-radius: 5px;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  margin-top: 0.3em;
+}
+
+.botao-primario {
+  background: var(--crimson);
+  color: #fff;
+  border: 1px solid var(--crimson);
+}
+
+.botao-primario:hover { background: var(--crimson-bright); }
+
+.botao-secundario {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  margin-bottom: 0;
+}
+
+.botao-secundario:hover { color: var(--gold-bright); border-color: var(--gold); }
+
+.login-dica {
+  margin-top: 1.4em;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.registro-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 7, 6, 0.75);
+  align-items: center;
+  justify-content: center;
+  padding: 1.5em;
+  z-index: 10;
+}
+
+.registro-overlay:not([hidden]) {
+  display: flex;
+}
+
+.registro-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2em;
+  width: 100%;
+  max-width: 420px;
+}
+
+.registro-card .fechar {
+  position: absolute;
+  top: 0.8em;
+  right: 0.9em;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+@media (max-width: 480px) {
+  .topo-faixa { flex-direction: column; align-items: flex-start; }
 }

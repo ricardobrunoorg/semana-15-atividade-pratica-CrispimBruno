@@ -1,138 +1,140 @@
-// Trabalho Interdisciplinar 1 - Aplicações Web
+// Mesa Aberta - Módulo de Login (adaptado)
 //
-// Esse módulo realiza o registro de novos usuários e login para aplicações com 
-// backend baseado em API REST provida pelo JSONServer
-// Os dados de usuário estão localizados no arquivo db.json que acompanha este projeto.
+// Baseado no módulo de login fornecido na atividade.
+// Adaptação: a navegação pelo site NÃO exige login. O usuário só é
+// redirecionado para o formulário de login quando tenta usar uma
+// funcionalidade que exige autenticação (ex.: favoritar um jogo).
 //
-// Autor: Rommel Vieira Carneiro (rommelcarneiro@gmail.com)
-// Data: 09/09/2024
-//
-// Código LoginApp  
+// Autor original do módulo: Rommel Vieira Carneiro (rommelcarneiro@gmail.com)
+// Adaptado por: Crispim
 
-
-// Página inicial de Login
+// Página de Login
 const LOGIN_URL = "/modulos/login/login.html";
-let RETURN_URL = "/modulos/login/index.html";
+let RETURN_URL = "/index.html";
 const API_URL = '/usuarios';
 
-// Objeto para o banco de dados de usuários baseado em JSON
-var db_usuarios = {};
+// Banco de dados de usuários (carregado via API)
+var db_usuarios = [];
 
-// Objeto para o usuário corrente
-var usuarioCorrente = {};
+// Usuário corrente: null quando ninguém está logado
+var usuarioCorrente = null;
 
 // Inicializa a aplicação de Login
-function initLoginApp () {
+function initLoginApp() {
     let pagina = window.location.pathname;
-    if (pagina != LOGIN_URL) {
-        // CONFIGURA A URLS DE RETORNO COMO A PÁGINA ATUAL
-        sessionStorage.setItem('returnURL', pagina);
-        RETURN_URL = pagina;
 
-        // INICIALIZA USUARIOCORRENTE A PARTIR DE DADOS NO LOCAL STORAGE, CASO EXISTA
-        usuarioCorrenteJSON = sessionStorage.getItem('usuarioCorrente');
-        if (usuarioCorrenteJSON) {
-            usuarioCorrente = JSON.parse (usuarioCorrenteJSON);
-        } else {
-            window.location.href = LOGIN_URL;
-        }
+    // Recupera o usuário logado a partir do sessionStorage, se existir
+    let usuarioCorrenteJSON = sessionStorage.getItem('usuarioCorrente');
+    usuarioCorrente = usuarioCorrenteJSON ? JSON.parse(usuarioCorrenteJSON) : null;
 
-        // REGISTRA LISTENER PARA O EVENTO DE CARREGAMENTO DA PÁGINA PARA ATUALIZAR INFORMAÇÕES DO USUÁRIO
-        document.addEventListener('DOMContentLoaded', function () {
-            showUserInfo ('userInfo');
-        });
-    }
-    else {
-        // VERIFICA SE A URL DE RETORNO ESTÁ DEFINIDA NO SESSION STORAGE, CASO CONTRARIO USA A PÁGINA INICIAL
+    if (pagina === LOGIN_URL) {
+        // Estamos na própria página de login: define a URL de retorno
         let returnURL = sessionStorage.getItem('returnURL');
-        RETURN_URL = returnURL || RETURN_URL
-        
-        // INICIALIZA BANCO DE DADOS DE USUÁRIOS
+        RETURN_URL = returnURL || RETURN_URL;
+
+        // Carrega a base de usuários para validar o formulário
         carregarUsuarios(() => {
             console.log('Usuários carregados...');
         });
-    }
-};
+    } else {
+        // Em qualquer outra página: guarda a URL atual para retorno pós-login
+        sessionStorage.setItem('returnURL', pagina);
 
+        // Atualiza a área de informações de login/usuário assim que o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', function () {
+            showUserInfo('userInfo');
+        });
+    }
+}
 
 function carregarUsuarios(callback) {
     fetch(API_URL)
-    .then(response => response.json())
-    .then(data => {
-        db_usuarios = data;
-        callback ()
-    })
-    .catch(error => {
-        console.error('Erro ao ler usuários via API JSONServer:', error);
-        displayMessage("Erro ao ler usuários");
-    });
+        .then(response => response.json())
+        .then(data => {
+            db_usuarios = data;
+            if (callback) callback();
+        })
+        .catch(error => {
+            console.error('Erro ao ler usuários via API JSONServer:', error);
+        });
 }
 
-// Verifica se o login do usuário está ok e, se positivo, direciona para a página inicial
-function loginUser (login, senha) {
-
-    // Verifica todos os itens do banco de dados de usuarios 
-    // para localizar o usuário informado no formulario de login
+// Verifica se o login do usuário está ok e, se positivo, monta usuarioCorrente
+function loginUser(login, senha) {
     for (var i = 0; i < db_usuarios.length; i++) {
         var usuario = db_usuarios[i];
 
-        // Se encontrou login, carrega usuário corrente e salva no Session Storage
         if (login == usuario.login && senha == usuario.senha) {
-            usuarioCorrente.id = usuario.id;
-            usuarioCorrente.login = usuario.login;
-            usuarioCorrente.email = usuario.email;
-            usuarioCorrente.nome = usuario.nome;
+            usuarioCorrente = {
+                id: usuario.id,
+                login: usuario.login,
+                email: usuario.email,
+                nome: usuario.nome
+            };
 
-            // Salva os dados do usuário corrente no Session Storage, mas antes converte para string
-            sessionStorage.setItem ('usuarioCorrente', JSON.stringify (usuarioCorrente));
-
-            // Retorna true para usuário encontrado
+            sessionStorage.setItem('usuarioCorrente', JSON.stringify(usuarioCorrente));
             return true;
         }
     }
-
-    // Se chegou até aqui é por que não encontrou o usuário e retorna falso
     return false;
 }
 
-// Apaga os dados do usuário corrente no sessionStorage
-function logoutUser () {
-    sessionStorage.removeItem ('usuarioCorrente');
-    window.location = LOGIN_URL;
+// Apaga os dados do usuário corrente e volta para a home
+function logoutUser() {
+    sessionStorage.removeItem('usuarioCorrente');
+    usuarioCorrente = null;
+
+    // Calcula o caminho da home-page a partir da página atual
+    let destino = window.location.pathname.includes('/modulos/') ? '../../index.html' : 'index.html';
+    window.location.href = destino;
 }
 
-function addUser (nome, login, senha, email) {
+function addUser(nome, login, senha, email) {
+    let usuario = { login: login, senha: senha, nome: nome, email: email };
 
-    // Cria um objeto de usuario para o novo usuario 
-    let usuario = { "login": login, "senha": senha, "nome": nome, "email": email };
-
-    // Envia dados do novo usuário para ser inserido no JSON Server
     fetch(API_URL, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(usuario),
     })
         .then(response => response.json())
         .then(data => {
-            // Adiciona o novo usuário na variável db_usuarios em memória
-            db_usuarios.push (usuario);
-            displayMessage("Usuário inserido com sucesso");
+            db_usuarios.push(data);
         })
         .catch(error => {
             console.error('Erro ao inserir usuário via API JSONServer:', error);
-            displayMessage("Erro ao inserir usuário");
         });
 }
 
-function showUserInfo (element) {
-    var elemUser = document.getElementById(element);
-    if (elemUser) {
-        elemUser.innerHTML = `${usuarioCorrente.nome} (${usuarioCorrente.login}) 
-                    <a onclick="logoutUser()">❌</a>`;
+// Atualiza a área de identificação na barra superior:
+// "Entrar" quando não logado, "Olá, <nome> | Sair" quando logado
+function showUserInfo(elementId) {
+    var elem = document.getElementById(elementId);
+    if (!elem) return;
+
+    if (usuarioCorrente) {
+        elem.innerHTML = `Olá, ${usuarioCorrente.nome} | <a href="#" id="linkSair">Sair</a>`;
+        let linkSair = document.getElementById('linkSair');
+        if (linkSair) linkSair.addEventListener('click', function (e) {
+            e.preventDefault();
+            logoutUser();
+        });
+    } else {
+        elem.innerHTML = `<a href="${LOGIN_URL}">Entrar</a>`;
     }
 }
 
-// Inicializa as estruturas utilizadas pelo LoginApp
-initLoginApp ();
+// Funções que exigem login (ex.: favoritar) devem chamar isto antes de agir.
+// Retorna true se o usuário está logado; caso contrário, avisa e redireciona.
+function exigirLogin() {
+    if (!usuarioCorrente) {
+        alert('Você precisa entrar para usar essa funcionalidade.');
+        sessionStorage.setItem('returnURL', window.location.pathname);
+        window.location.href = LOGIN_URL;
+        return false;
+    }
+    return true;
+}
+
+// Inicializa as estruturas utilizadas pelo módulo de login
+initLoginApp();

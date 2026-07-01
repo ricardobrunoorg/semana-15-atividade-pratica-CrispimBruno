@@ -1,30 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./assets/css/styles.css">
-    <script src="./assets/js/login.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesa Aberta | Sobre</title>
+  <link rel="stylesheet" href="./assets/css/styles.css">
+  <script src="./assets/js/login.js"></script>
 </head>
 <body>
-    <header>
-        <div class="banner"><img src="./assets/images/banner_ti.png" alt=""></div>
-        <div class="barra-info">
-            <nav class="menu">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">Sobre nós</a></li>
-                </ul>
-            </nav>
-            <div class="dados-usuario">
-                <span id="userInfo"></span>
-            </div>
-        </div>
-    </header>
-    <main>
-        <h1>Sobre nós</h1>
-        <p>Página com informações sobre o site.</p>
-    </main>
+  <header class="topo">
+    <div class="topo-faixa">
+      <a href="index.html" class="marca">
+        <span class="marca-simbolo">&#9861;</span>
+        <span class="marca-nome">Mesa Aberta</span>
+      </a>
+      <nav class="menu-principal">
+        <ul>
+          <li><a href="index.html">Catálogo</a></li>
+          <li><a href="favoritos.html">Meus Favoritos</a></li>
+          <li><a href="about.html">Sobre</a></li>
+        </ul>
+        <span id="userInfo"></span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pagina-texto">
+    <h1>Sobre o Mesa Aberta</h1>
+    <p>O Mesa Aberta é um catálogo de jogos de tabuleiro e RPG de mesa, criado como Trabalho
+      Interdisciplinar 1 do curso de Engenharia de Software / Desenvolvimento de Interfaces Web
+      da PUC Minas.</p>
+    <p>O projeto integra um módulo de login (autenticação via <code>sessionStorage</code> e API
+      JSON Server) com uma funcionalidade de personalização: usuários autenticados podem marcar
+      jogos como favoritos, persistidos por conta em <code>localStorage</code>.</p>
+  </main>
+
+  <footer>Mesa Aberta &mdash; Trabalho Interdisciplinar 1, PUC Minas</footer>
 </body>
 </html>

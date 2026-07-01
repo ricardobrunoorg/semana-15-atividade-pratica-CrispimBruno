@@ -15,11 +15,130 @@
       "email": "user@abc.com"
     },
     {
-      "login": "rommel",
+      "login": "teste",
       "senha": "123",
-      "nome": "Rommel",
-      "email": "rommel@gmail.com",
+      "nome": "Teste",
+      "email": "teste@teste.com",
       "id": 3
+    },
+    {
+      "login": "crispim",
+      "senha": "123",
+      "nome": "Crispim",
+      "email": "crispim@teste.com",
+      "id": 4
+    }
+  ],
+  "jogos": [
+    {
+      "id": 1,
+      "titulo": "Dungeons & Dragons",
+      "genero": "RPG de Mesa",
+      "jogadores": "3-6",
+      "duracao": "3h+",
+      "dificuldade": "Avançada",
+      "cor": "#B23A48",
+      "icone": "d20",
+      "descricao": "O clássico RPG de fantasia medieval. Crie seu personagem e viva aventuras épicas guiadas por um mestre."
+    },
+    {
+      "id": 2,
+      "titulo": "Catan",
+      "genero": "Estratégia",
+      "jogadores": "3-4",
+      "duracao": "1h",
+      "dificuldade": "Média",
+      "cor": "#C9A227",
+      "icone": "d6",
+      "descricao": "Negocie recursos, construa estradas e colonize a ilha de Catan antes dos seus adversários."
+    },
+    {
+      "id": 3,
+      "titulo": "Gloomhaven",
+      "genero": "RPG Cooperativo",
+      "jogadores": "1-4",
+      "duracao": "2h+",
+      "dificuldade": "Avançada",
+      "cor": "#4A5D52",
+      "icone": "d12",
+      "descricao": "Uma campanha tática e sombria de mercenários explorando masmorras em busca de glória."
+    },
+    {
+      "id": 4,
+      "titulo": "Ticket to Ride",
+      "genero": "Família",
+      "jogadores": "2-5",
+      "duracao": "45min",
+      "dificuldade": "Fácil",
+      "cor": "#3B6E8F",
+      "icone": "d6",
+      "descricao": "Conecte cidades por trilhos de trem em um mapa cheio de rotas disputadas."
+    },
+    {
+      "id": 5,
+      "titulo": "Vampire: The Masquerade",
+      "genero": "RPG Gótico",
+      "jogadores": "3-5",
+      "duracao": "3h+",
+      "dificuldade": "Avançada",
+      "cor": "#6B1424",
+      "icone": "d10",
+      "descricao": "Intriga política e horror pessoal nas sombras de uma cidade governada por vampiros."
+    },
+    {
+      "id": 6,
+      "titulo": "Pandemic",
+      "genero": "Cooperativo",
+      "jogadores": "2-4",
+      "duracao": "1h",
+      "dificuldade": "Média",
+      "cor": "#2E7D5B",
+      "icone": "d8",
+      "descricao": "Trabalhe em equipe para conter quatro surtos de doenças antes que se espalhem pelo mundo."
+    },
+    {
+      "id": 7,
+      "titulo": "Blades in the Dark",
+      "genero": "RPG Narrativo",
+      "jogadores": "2-5",
+      "duracao": "2h",
+      "dificuldade": "Média",
+      "cor": "#2B2640",
+      "icone": "d6",
+      "descricao": "Lidere uma quadrilha de criminosos em uma cidade industrial assombrada por fantasmas."
+    },
+    {
+      "id": 8,
+      "titulo": "Azul",
+      "genero": "Abstrato",
+      "jogadores": "2-4",
+      "duracao": "30min",
+      "dificuldade": "Fácil",
+      "cor": "#1F6F78",
+      "icone": "d4",
+      "descricao": "Componha belos painéis de azulejos portugueses combinando peças coloridas com estratégia."
+    },
+    {
+      "id": 9,
+      "titulo": "Call of Cthulhu",
+      "genero": "RPG de Horror",
+      "jogadores": "2-5",
+      "duracao": "3h+",
+      "dificuldade": "Avançada",
+      "cor": "#243B33",
+      "icone": "d100",
+      "descricao": "Investigue mistérios cósmicos enquanto sua sanidade é posta à prova a cada descoberta."
+    },
+    {
+      "id": 10,
+      "titulo": "Wingspan",
+      "genero": "Estratégia",
+      "jogadores": "1-5",
+      "duracao": "1h",
+      "dificuldade": "Média",
+      "cor": "#8F6B3B",
+      "icone": "d6",
+      "descricao": "Atraia espécies de aves para seus santuários e construa a melhor cadeia de habitats."
     }
   ]
 }
