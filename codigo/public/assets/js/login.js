@@ -1,46 +1,28 @@
-// Mesa Aberta - Módulo de Login (adaptado)
-//
-// Baseado no módulo de login fornecido na atividade.
-// Adaptação: a navegação pelo site NÃO exige login. O usuário só é
-// redirecionado para o formulário de login quando tenta usar uma
-// funcionalidade que exige autenticação (ex.: favoritar um jogo).
-//
-// Autor original do módulo: Rommel Vieira Carneiro (rommelcarneiro@gmail.com)
-// Adaptado por: Crispim
 
-// Página de Login
 const LOGIN_URL = "/modulos/login/login.html";
 let RETURN_URL = "/index.html";
 const API_URL = '/usuarios';
 
-// Banco de dados de usuários (carregado via API)
 var db_usuarios = [];
 
-// Usuário corrente: null quando ninguém está logado
 var usuarioCorrente = null;
 
-// Inicializa a aplicação de Login
 function initLoginApp() {
     let pagina = window.location.pathname;
 
-    // Recupera o usuário logado a partir do sessionStorage, se existir
     let usuarioCorrenteJSON = sessionStorage.getItem('usuarioCorrente');
     usuarioCorrente = usuarioCorrenteJSON ? JSON.parse(usuarioCorrenteJSON) : null;
 
     if (pagina === LOGIN_URL) {
-        // Estamos na própria página de login: define a URL de retorno
         let returnURL = sessionStorage.getItem('returnURL');
         RETURN_URL = returnURL || RETURN_URL;
 
-        // Carrega a base de usuários para validar o formulário
         carregarUsuarios(() => {
             console.log('Usuários carregados...');
         });
     } else {
-        // Em qualquer outra página: guarda a URL atual para retorno pós-login
         sessionStorage.setItem('returnURL', pagina);
 
-        // Atualiza a área de informações de login/usuário assim que o DOM estiver pronto
         document.addEventListener('DOMContentLoaded', function () {
             showUserInfo('userInfo');
         });
@@ -59,7 +41,6 @@ function carregarUsuarios(callback) {
         });
 }
 
-// Verifica se o login do usuário está ok e, se positivo, monta usuarioCorrente
 function loginUser(login, senha) {
     for (var i = 0; i < db_usuarios.length; i++) {
         var usuario = db_usuarios[i];
@@ -79,12 +60,10 @@ function loginUser(login, senha) {
     return false;
 }
 
-// Apaga os dados do usuário corrente e volta para a home
 function logoutUser() {
     sessionStorage.removeItem('usuarioCorrente');
     usuarioCorrente = null;
 
-    // Calcula o caminho da home-page a partir da página atual
     let destino = window.location.pathname.includes('/modulos/') ? '../../index.html' : 'index.html';
     window.location.href = destino;
 }
@@ -106,8 +85,6 @@ function addUser(nome, login, senha, email) {
         });
 }
 
-// Atualiza a área de identificação na barra superior:
-// "Entrar" quando não logado, "Olá, <nome> | Sair" quando logado
 function showUserInfo(elementId) {
     var elem = document.getElementById(elementId);
     if (!elem) return;
@@ -124,8 +101,6 @@ function showUserInfo(elementId) {
     }
 }
 
-// Funções que exigem login (ex.: favoritar) devem chamar isto antes de agir.
-// Retorna true se o usuário está logado; caso contrário, avisa e redireciona.
 function exigirLogin() {
     if (!usuarioCorrente) {
         alert('Você precisa entrar para usar essa funcionalidade.');
@@ -136,5 +111,4 @@ function exigirLogin() {
     return true;
 }
 
-// Inicializa as estruturas utilizadas pelo módulo de login
 initLoginApp();

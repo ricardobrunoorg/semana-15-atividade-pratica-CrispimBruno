@@ -1,7 +1,3 @@
-// Mesa Aberta - Módulo de Favoritos
-//
-// Guarda, por usuário, a lista de ids de jogos favoritados.
-// Chave: favoritos_<idDoUsuario>  ->  valor: array de ids, ex.: [3, 7, 12]
 
 function chaveFavoritos() {
     return usuarioCorrente ? `favoritos_${usuarioCorrente.id}` : null;
@@ -18,9 +14,6 @@ function getFavoritos() {
 function isFavorito(idJogo) {
     return getFavoritos().includes(idJogo);
 }
-
-// Alterna o estado de favorito de um jogo para o usuário logado.
-// Exige login: se ninguém estiver logado, redireciona para a tela de login.
 function toggleFavorito(idJogo) {
     if (!exigirLogin()) return false;
 

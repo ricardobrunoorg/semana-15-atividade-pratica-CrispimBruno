@@ -1,7 +1,3 @@
-// Mesa Aberta - Catálogo de jogos
-//
-// Busca os jogos na API do JSON Server e renderiza os cards,
-// incluindo o botão de favoritar (apenas para usuários logados).
 
 const JOGOS_API = '/jogos';
 let listaJogos = [];
@@ -63,7 +59,6 @@ function renderCards(jogos, containerId, mensagemVazio) {
     });
 }
 
-// Sobrescrita por cada página (home ou favoritos) para saber como re-renderizar
 let onListaAtualizada = function () {};
 
 function atualizarContador(elementId, quantidade, rotulo) {
